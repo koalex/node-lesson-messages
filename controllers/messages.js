@@ -1,5 +1,4 @@
-const Message   = require('../models/message');
-
+const Message = require('../models/message');
 
 exports.getAll = async ctx => {
     ctx.type = 'json';
@@ -9,7 +8,6 @@ exports.getAll = async ctx => {
         ctx.body = await Message.find().lean().exec();
     }
 };
-
 
 exports.getOne = async ctx => {
     ctx.type = 'json';
@@ -25,4 +23,22 @@ exports.create = async ctx => {
     await message.save();
 
     ctx.redirect('/');
+};
+
+exports.update = async ctx => {
+    const message = await Message.findOne({_id: String(ctx.params.messageId)});
+
+    if (!message) return ctx.throw(404);
+
+    message.message = ctx.request.body;
+
+    await message.save();
+
+    ctx.status = 200;
+};
+
+exports.delete = async ctx => {
+    await Message.findByIdAndRemove(String(ctx.params.messageId));
+
+    ctx.status = 200;
 };
