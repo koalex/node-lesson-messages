@@ -1,4 +1,5 @@
 const Message = require('../models/message');
+const Socket  = require('../../../lib/socket');
 
 exports.getAll = async ctx => {
     ctx.type = 'json';
@@ -17,10 +18,12 @@ exports.getOne = async ctx => {
 exports.create = async ctx => {
     const message = new Message({
         message: ctx.request.body.message,
-        user_id: user._id
+        user_id: ctx.state.user._id
     });
 
     await message.save();
+
+    Socket.io.emit('NEW_MESSAGE', message);
 
     ctx.redirect('/');
 };

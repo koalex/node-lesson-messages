@@ -2,7 +2,8 @@ const mongoose = require('../../../lib/mongoose');
 
 const messageSchema = new mongoose.Schema({
     message: { type: String, minlength: 1, maxlength: 5000 },
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    created_at: { type: Date, default: Date.now }
 }, {
     versionKey: false,
     id: false,
