@@ -1,4 +1,4 @@
-const mongoose = require('server/lib/mongoose');
+const mongoose = require('../../../lib/mongoose');
 
 const messageSchema = new mongoose.Schema({
     message: { type: String, minlength: 1, maxlength: 5000 },
