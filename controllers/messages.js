@@ -25,7 +25,8 @@ exports.create = async ctx => {
 
     Socket.io.emit('NEW_MESSAGE', message);
 
-    ctx.redirect('/');
+    ctx.status = 200;
+    // ctx.redirect('/'); // for html page
 };
 
 exports.update = async ctx => {
